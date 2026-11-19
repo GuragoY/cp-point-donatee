@@ -109,6 +109,8 @@ section > .head { max-width: 62ch; margin-bottom: 26px; }
 .tab { font: inherit; font-weight: 600; font-size: 14px; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
 .tab.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .tab:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+.buy { grid-column: 1 / -1; display: block; text-align: center; text-decoration: none; font-weight: 700; font-size: 14px; padding: 10px 14px; border-radius: 10px; background: var(--accent); color: var(--on-accent); margin-top: 6px; }
+.buy:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
 .note { color: var(--muted); font-size: 14px; margin: 14px 0 0; }
 
 /* qadamlar */
@@ -215,7 +217,7 @@ footer p { margin: 0 0 8px; max-width: 80ch; }
         <button type="button" class="tab" id="tab-x2" role="tab" aria-selected="false">⚡ 2X aksiya</button>
       </div>
       <ul class="prices" id="prices"></ul>
-      <p class="note">Narxlar botdagi ro'yxatga mos. O'zgarsa, amaldagi narx botda ko'rinadi. Aksiya yoki promokod bo'lsa, narx botda avtomatik arzonlashadi.</p>
+      <p class="note">Tugmani bossangiz bot shu paket bilan ochiladi. Narxlar botdagi ro'yxatga mos. O'zgarsa, amaldagi narx botda ko'rinadi. Aksiya yoki promokod bo'lsa, narx botda avtomatik arzonlashadi.</p>
     </section>
 
     <section id="qanday">
@@ -326,6 +328,7 @@ footer p { margin: 0 0 8px; max-width: 80ch; }
     { cp: 10800, price: 1249000 }
   ];
   function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+  var BOT = "https://t.me/Codmcppoint_bot";
   var X2 = [
     { cp: "80 + 80", total: 160, price: 13000 },
     { cp: "400 + 400", total: 800, price: 67000 },
@@ -348,7 +351,8 @@ footer p { margin: 0 0 8px; max-width: 80ch; }
           '<span class="cp">' + p.cp + '<i>CP</i></span>' +
           '<span class="sum">' + fmt(p.price) + " so'm</span>" +
           '<span class="per">Jami ' + fmt(p.total) + " CP · 1 CP ≈ " + per + " so'm</span>" +
-          '<span class="tag">2X</span>';
+          '<span class="tag">2X</span>' +
+          '<a class="buy" target="_blank" rel="noopener" href="' + BOT + '?start=buyx_' + p.cp.split(" ")[0] + '">Sotib olish</a>';
         ul.appendChild(li);
       });
       note.textContent = "2X aksiya: paket CP si ikki baravar beriladi. Aksiya muddati cheklangan, amaldagi holat botda ko'rinadi. 2X paketlarga promokod va chegirma qo'llanmaydi.";
@@ -361,7 +365,8 @@ footer p { margin: 0 0 8px; max-width: 80ch; }
           '<span class="cp">' + fmt(p.cp) + '<i>CP</i></span>' +
           '<span class="sum">' + fmt(p.price) + " so'm</span>" +
           '<span class="per">1 CP ≈ ' + per + " so'm</span>" +
-          (p === best ? '<span class="tag">Eng qulay</span>' : "<span></span>");
+          (p === best ? '<span class="tag">Eng qulay</span>' : "<span></span>") +
+          '<a class="buy" target="_blank" rel="noopener" href="' + BOT + '?start=buy_' + p.cp + '">Sotib olish</a>';
         ul.appendChild(li);
       });
       note.textContent = noteReg;
