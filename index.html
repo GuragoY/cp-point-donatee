@@ -1,0 +1,398 @@
+<title>CP Point Donate</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Unbounded:wght@500;700&display=swap">
+<style>
+/* Layout: chap tomonda matn, o'ngda olmos; narxlar ro'yxat qatorlari, qadamlar ketma-ketligi */
+:root {
+  --bg: #0b0a1f;
+  --surface: #15133b;
+  --surface-2: #1d1a4d;
+  --line: #2c2866;
+  --fg: #eef0ff;
+  --muted: #a3a6cf;
+  --accent: #f5c542;
+  --on-accent: #14123a;
+  --accent-ink: #f5c542;
+  --ice: #7fd3ff;
+  --font-display: "Unbounded", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f4f5ff;
+    --surface: #ffffff;
+    --surface-2: #eceeff;
+    --line: #d5d8f5;
+    --fg: #14123a;
+    --muted: #55587f;
+    --accent-ink: #8a5f00;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f4f5ff;
+  --surface: #ffffff;
+  --surface-2: #eceeff;
+  --line: #d5d8f5;
+  --fg: #14123a;
+  --muted: #55587f;
+  --accent-ink: #8a5f00;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
+a { color: inherit; }
+.wrap { max-width: 1040px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h2 { font-size: clamp(22px, 4.5vw, 32px); font-weight: 700; }
+.eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-ink); font-weight: 700; margin: 0 0 10px; }
+
+/* header */
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 18px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 15px; text-decoration: none; }
+.brand svg { width: 28px; height: 28px; flex: none; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--accent); color: var(--on-accent); font-weight: 700; text-decoration: none;
+  padding: 12px 20px; border-radius: 10px; border: 0; font-size: 15px; font-family: var(--font-body);
+}
+.btn:hover { filter: brightness(1.06); }
+.btn:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--ice); outline-offset: 3px; }
+.btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--line); }
+.btn.small { padding: 9px 14px; font-size: 14px; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1.15fr .85fr; gap: 32px; align-items: center; padding-block: 36px 56px; }
+.hero > * { min-width: 0; }
+.hero h1 { font-size: clamp(30px, 7vw, 54px); font-weight: 700; }
+.hero h1 span { color: var(--accent-ink); }
+.lead { color: var(--muted); font-size: 17px; max-width: 46ch; margin: 18px 0 0; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.diamond { width: 100%; max-width: 340px; justify-self: center; filter: drop-shadow(0 18px 40px rgba(127, 211, 255, .28)); }
+
+/* countdown */
+.launch { border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: 18px 20px; margin-top: 30px; max-width: 520px; }
+.launch p { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
+.timer { display: flex; gap: 8px; flex-wrap: wrap; }
+.timer div { background: var(--surface-2); border-radius: 10px; padding: 8px 12px; min-width: 64px; text-align: center; }
+.timer b { display: block; font-family: var(--font-display); font-size: 24px; font-variant-numeric: tabular-nums; }
+.timer small { font-size: 11px; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+.open-now { font-weight: 700; color: var(--accent-ink); margin: 0; font-size: 16px; }
+
+section { padding-block: 44px; border-top: 1px solid var(--line); }
+section > .head { max-width: 62ch; margin-bottom: 26px; }
+.head p { color: var(--muted); margin: 12px 0 0; }
+
+/* narxlar */
+.prices { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); overflow: hidden; }
+.prices li { display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: center; padding: 16px 20px; border-top: 1px solid var(--line); }
+.prices li:first-child { border-top: 0; }
+.prices .cp { font-family: var(--font-display); font-weight: 700; font-size: 20px; font-variant-numeric: tabular-nums; }
+.prices .cp i { font-style: normal; font-size: 12px; color: var(--muted); font-family: var(--font-body); font-weight: 500; margin-left: 6px; letter-spacing: .06em; }
+.prices .sum { font-weight: 700; font-size: 18px; text-align: right; font-variant-numeric: tabular-nums; }
+.prices .per { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.prices .tag { justify-self: end; font-size: 12px; font-weight: 700; background: var(--accent); color: var(--on-accent); padding: 2px 8px; border-radius: 6px; }
+.tabs { display: flex; gap: 8px; margin: 0 0 14px; }
+.tab { font: inherit; font-weight: 600; font-size: 14px; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--muted); cursor: pointer; }
+.tab.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.tab:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
+.note { color: var(--muted); font-size: 14px; margin: 14px 0 0; }
+
+/* qadamlar */
+.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.steps li { counter-increment: s; border-top: 3px solid var(--accent); padding-top: 14px; min-width: 0; }
+.steps li::before { content: counter(s); font-family: var(--font-display); font-size: 13px; color: var(--accent-ink); font-weight: 700; display: block; margin-bottom: 6px; }
+.steps h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.steps p { margin: 0; color: var(--muted); font-size: 14.5px; }
+.safe { margin-top: 24px; border-left: 4px solid var(--ice); background: var(--surface); padding: 14px 18px; border-radius: 0 10px 10px 0; color: var(--muted); font-size: 15px; }
+.safe b { color: var(--fg); }
+
+/* ikki ustun */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.cols > * { min-width: 0; }
+.cols h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+.cols p { color: var(--muted); margin: 0 0 12px; }
+.cols ul { margin: 0 0 14px; padding-left: 18px; color: var(--muted); }
+.cols li { margin-bottom: 4px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; }
+
+/* faq */
+details { border-top: 1px solid var(--line); padding-block: 14px; }
+details:last-of-type { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--accent-ink); font-size: 22px; line-height: 1; }
+details[open] summary::after { content: "–"; }
+details p { margin: 10px 0 0; color: var(--muted); max-width: 70ch; }
+
+/* aloqa + footer */
+.contact { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); font-size: 13px; }
+footer p { margin: 0 0 8px; max-width: 80ch; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding-block: 18px 40px; }
+  .diamond { max-width: 120px; justify-self: start; order: -1; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .cols { grid-template-columns: 1fr; }
+  .prices li { padding: 14px 16px; }
+}
+@media (max-width: 440px) {
+  .steps { grid-template-columns: 1fr; }
+  .timer div { min-width: 58px; padding: 8px 10px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: filter .15s; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top" aria-label="CP Point Donate">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <polygon points="32,6 54,24 32,58 10,24" fill="#7fd3ff"/>
+        <polygon points="32,6 54,24 32,24" fill="#d6f3ff"/>
+        <polygon points="10,24 32,24 32,58" fill="#3a78d6"/>
+        <polygon points="54,24 32,24 32,58" fill="#2a5cb8"/>
+      </svg>
+      CP Point Donate
+    </a>
+    <a class="btn small" href="https://t.me/Codmcppoint_bot" target="_blank" rel="noopener">Botni ochish</a>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Call of Duty Mobile uchun</p>
+        <h1>CP sotib olish endi <span>Telegram botda</span></h1>
+        <p class="lead">Paketni tanlang, kartaga to'lang, chekni botga yuboring. Admin tekshirgach CP o'yin akkauntingizga tushadi. Tayyor akkauntlarni videosini ko'rib, keyin sotib olasiz.</p>
+        <div class="cta">
+          <a class="btn" href="https://t.me/Codmcppoint_bot" target="_blank" rel="noopener">Telegramda ochish</a>
+          <a class="btn ghost" href="#narxlar">Narxlarni ko'rish</a>
+        </div>
+        <div class="launch" id="launch">
+          <p id="launch-label">Bot rasmiy ochilishiga qoldi (20-noyabr, 00:00, Toshkent vaqti)</p>
+          <div class="timer" id="timer" role="timer" aria-live="off">
+            <div><b id="t-d">--</b><small>kun</small></div>
+            <div><b id="t-h">--</b><small>soat</small></div>
+            <div><b id="t-m">--</b><small>daqiqa</small></div>
+            <div><b id="t-s">--</b><small>soniya</small></div>
+          </div>
+          <p class="open-now" id="open-now" hidden>Bot ochiq. Buyurtma berishingiz mumkin.</p>
+        </div>
+      </div>
+      <svg class="diamond" viewBox="0 0 200 220" role="img" aria-label="Olmos">
+        <polygon points="100,12 176,74 100,196 24,74" fill="#7fd3ff"/>
+        <polygon points="100,12 176,74 100,74" fill="#dff6ff"/>
+        <polygon points="100,12 24,74 100,74" fill="#a9e3ff"/>
+        <polygon points="24,74 100,74 100,196" fill="#3a78d6"/>
+        <polygon points="176,74 100,74 100,196" fill="#2a5cb8"/>
+        <polygon points="64,40 82,28 92,52 72,60" fill="#ffffff" opacity=".55"/>
+      </svg>
+    </div>
+
+    <section id="narxlar">
+      <div class="head">
+        <p class="eyebrow">CP narxlari</p>
+        <h2>Paketlar va narxlar</h2>
+        <p>Paket qancha katta bo'lsa, 1 CP shuncha arzon tushadi. Qator oxiridagi raqam 1 CP ning taxminiy narxi.</p>
+      </div>
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab on" id="tab-reg" role="tab" aria-selected="true">Doimiy narx</button>
+        <button type="button" class="tab" id="tab-x2" role="tab" aria-selected="false">⚡ 2X aksiya</button>
+      </div>
+      <ul class="prices" id="prices"></ul>
+      <p class="note">Narxlar botdagi ro'yxatga mos. O'zgarsa, amaldagi narx botda ko'rinadi. Aksiya yoki promokod bo'lsa, narx botda avtomatik arzonlashadi.</p>
+    </section>
+
+    <section id="qanday">
+      <div class="head">
+        <p class="eyebrow">Qanday ishlaydi</p>
+        <h2>To'rt qadamda CP olasiz</h2>
+      </div>
+      <ol class="steps">
+        <li><h3>Botni oching</h3><p>Telegramda botga kirib, «CP sotib olish» ni bosing va paketni tanlang.</p></li>
+        <li><h3>Akkaunt ma'lumoti</h3><p>O'yin akkauntingiz login va parolini botga yuborasiz. Xabaringiz avtomatik o'chiriladi.</p></li>
+        <li><h3>To'lov</h3><p>Bot ko'rsatgan kartaga pulni o'tkazing va chek skrinshotini botga yuboring.</p></li>
+        <li><h3>CP tushadi</h3><p>Admin chekni tekshirib tasdiqlaydi, CP hisobingizga tushadi va botdan xabar keladi.</p></li>
+      </ol>
+      <div class="safe"><b>Xavfsizlik:</b> parol faqat CP tushirish uchun ishlatiladi. CP tushgach, akkaunt parolini o'zgartirishni tavsiya qilamiz. Buyurtma holatini botdagi «Buyurtmalarim» bo'limidan kuzatasiz.</div>
+    </section>
+
+    <section id="akkaunt">
+      <div class="head">
+        <p class="eyebrow">Akkauntlar</p>
+        <h2>Tayyor akkaunt olish yoki sotish</h2>
+      </div>
+      <div class="cols">
+        <div class="panel">
+          <h3>Akkaunt sotib olish</h3>
+          <p>Botdagi «Akkaunt sotib olish» bo'limida sotuvdagi akkauntlar video va rasmlar bilan turadi. Avval hammasini ko'rasiz, keyin sotib olasiz.</p>
+          <ul>
+            <li>Tanlagan akkauntingiz to'lov paytida 30 daqiqa sizga band qilinadi</li>
+            <li>Sotib olingan akkauntga 7 kun kafolat beriladi</li>
+            <li>Muammo chiqsa, botdagi «Kafolat / shikoyat» tugmasi orqali yozasiz</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Akkauntingizni sotish</h3>
+          <p>Akkauntingizni sotmoqchi bo'lsangiz, botdagi «Akkaunt sotish» tugmasini bosing, video yoki rasmlar bilan nomi va narxini yuboring.</p>
+          <ul>
+            <li>Dastlab login va parol so'ralmaydi</li>
+            <li>Admin ko'rib chiqib, siz bilan botda bog'lanadi</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="aksiya">
+      <div class="head">
+        <p class="eyebrow">Chegirmalar</p>
+        <h2>Aksiya, promokod va konkurs</h2>
+        <p>Vaqtinchalik aksiyalar paytida CP sahifasida chegirma va tugashiga qolgan vaqt ko'rinadi. Promokodingiz bo'lsa, botdagi «Promokod» tugmasiga yuboring, chegirma avtomatik qo'llanadi. Bot ichida vaqti-vaqti bilan konkurslar ham o'tkaziladi, qatnashish uchun botda tugmani bossangiz bo'ldi.</p>
+      </div>
+    </section>
+
+    <section id="savollar">
+      <div class="head">
+        <p class="eyebrow">Savol-javob</p>
+        <h2>Ko'p so'raladigan savollar</h2>
+      </div>
+      <details>
+        <summary>To'lovni qanday qilaman?</summary>
+        <p>Buyurtma bergach, bot karta raqamini ko'rsatadi. Pulni o'tkazib, chek skrinshotini rasm qilib botga yuborasiz.</p>
+      </details>
+      <details>
+        <summary>CP qachon tushadi?</summary>
+        <p>Admin chekni tekshirib tasdiqlagach CP akkauntingizga tushadi va botdan xabar keladi. Buyurtmangiz holatini «Buyurtmalarim» bo'limidan ko'rasiz. Javob kechiksa, bot sizga ogohlantirish yuboradi.</p>
+      </details>
+      <details>
+        <summary>Buyurtma rad etilishi mumkinmi?</summary>
+        <p>Ha, chek noto'g'ri yoki to'lov topilmasa, admin buyurtmani rad etadi va botdan xabar keladi. Savolingiz bo'lsa, admin bilan bog'lanasiz.</p>
+      </details>
+      <details>
+        <summary>Parolimni berish xavfsizmi?</summary>
+        <p>CP tushirish uchun akkaunt kirishi kerak bo'ladi. Yuborgan xabaringiz avtomatik o'chiriladi, admin tasdiqlagach botdagi ma'lumot ham tozalanadi. Baribir CP tushgach parolni o'zgartirishni tavsiya qilamiz.</p>
+      </details>
+      <details>
+        <summary>Muammo bo'lsa kimga yozaman?</summary>
+        <p>Botdagi «Adminga yozish» tugmasi orqali yoki pastdagi Telegram manzillarga murojaat qiling.</p>
+      </details>
+    </section>
+
+    <section id="aloqa">
+      <div class="head">
+        <p class="eyebrow">Aloqa</p>
+        <h2>Buyurtma berishga tayyormisiz?</h2>
+        <p>CP xarid qilish bo'yicha muammolar bo'lsa, quyidagi manzillarga yozing.</p>
+      </div>
+      <div class="contact">
+        <a class="btn" href="https://t.me/Codmcppoint_bot" target="_blank" rel="noopener">Botni ochish</a>
+        <a class="btn ghost" href="https://t.me/Sloowwe" target="_blank" rel="noopener">@Sloowwe</a>
+        <a class="btn ghost" href="https://t.me/Balor_YT" target="_blank" rel="noopener">@Balor_YT</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>CP Point Donate mustaqil xizmat. Call of Duty: Mobile nomi va belgilari ularning egalariga tegishli. Sayt Activision yoki Tencent bilan bog'liq emas va ularning rasmiy xizmati emas.</p>
+    <p>Bot: @Codmcppoint_bot</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var PACKS = [
+    { cp: 80, price: 13000 },
+    { cp: 160, price: 26000 },
+    { cp: 240, price: 40000 },
+    { cp: 420, price: 67000 },
+    { cp: 880, price: 130000 },
+    { cp: 2400, price: 370000 },
+    { cp: 5000, price: 630000 },
+    { cp: 10800, price: 1249000 }
+  ];
+  function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+  var X2 = [
+    { cp: "80 + 80", total: 160, price: 13000 },
+    { cp: "400 + 400", total: 800, price: 67000 },
+    { cp: "800 + 800", total: 1600, price: 130000 },
+    { cp: "2000 + 2000", total: 4000, price: 370000 },
+    { cp: "4000 + 4000", total: 8000, price: 630000 },
+    { cp: "8000 + 8000", total: 16000, price: 1249000 }
+  ];
+  var ul = document.getElementById("prices");
+  var note = document.querySelector("#narxlar .note");
+  var noteReg = note.textContent;
+  function show(mode) {
+    var x2 = mode === "x2";
+    ul.innerHTML = "";
+    if (x2) {
+      X2.forEach(function (p) {
+        var li = document.createElement("li");
+        var per = (p.price / p.total).toFixed(1).replace(".", ",");
+        li.innerHTML =
+          '<span class="cp">' + p.cp + '<i>CP</i></span>' +
+          '<span class="sum">' + fmt(p.price) + " so'm</span>" +
+          '<span class="per">Jami ' + fmt(p.total) + " CP · 1 CP ≈ " + per + " so'm</span>" +
+          '<span class="tag">2X</span>';
+        ul.appendChild(li);
+      });
+      note.textContent = "2X aksiya: paket CP si ikki baravar beriladi. Aksiya muddati cheklangan, amaldagi holat botda ko'rinadi. 2X paketlarga promokod va chegirma qo'llanmaydi.";
+    } else {
+      var best = PACKS.reduce(function (a, p) { return p.price / p.cp < a.price / a.cp ? p : a; });
+      PACKS.forEach(function (p) {
+        var li = document.createElement("li");
+        var per = (p.price / p.cp).toFixed(1).replace(".", ",");
+        li.innerHTML =
+          '<span class="cp">' + fmt(p.cp) + '<i>CP</i></span>' +
+          '<span class="sum">' + fmt(p.price) + " so'm</span>" +
+          '<span class="per">1 CP ≈ ' + per + " so'm</span>" +
+          (p === best ? '<span class="tag">Eng qulay</span>' : "<span></span>");
+        ul.appendChild(li);
+      });
+      note.textContent = noteReg;
+    }
+    document.getElementById("tab-reg").className = "tab" + (x2 ? "" : " on");
+    document.getElementById("tab-x2").className = "tab" + (x2 ? " on" : "");
+    document.getElementById("tab-reg").setAttribute("aria-selected", x2 ? "false" : "true");
+    document.getElementById("tab-x2").setAttribute("aria-selected", x2 ? "true" : "false");
+  }
+  document.getElementById("tab-reg").onclick = function () { show("reg"); };
+  document.getElementById("tab-x2").onclick = function () { show("x2"); };
+  show("reg");
+
+  var LAUNCH = new Date("2026-11-20T00:00:00+05:00").getTime();
+  function pad(n) { return n < 10 ? "0" + n : String(n); }
+  function tick() {
+    var left = LAUNCH - Date.now();
+    var timer = document.getElementById("timer");
+    var label = document.getElementById("launch-label");
+    var open = document.getElementById("open-now");
+    if (left <= 0) {
+      timer.hidden = true; label.hidden = true; open.hidden = false;
+      return;
+    }
+    var s = Math.floor(left / 1000);
+    document.getElementById("t-d").textContent = Math.floor(s / 86400);
+    document.getElementById("t-h").textContent = pad(Math.floor(s % 86400 / 3600));
+    document.getElementById("t-m").textContent = pad(Math.floor(s % 3600 / 60));
+    document.getElementById("t-s").textContent = pad(s % 60);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
